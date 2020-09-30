@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical"
+    tools:context=".MainActivity"
     android:padding="15dp">
 
     <ScrollView
@@ -25,6 +26,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
+                android:autofillHints="@string/nama"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:hint="Nama Mahasiswa"
@@ -41,6 +43,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
+                android:autofillHints="@string/nim"
                 android:ems="10"
                 android:inputType="numberSigned"
                 android:hint="Nomor Induk Mahasiswa"
@@ -57,6 +60,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
+                android:autofillHints="@string/tgl_lahir"
                 android:ems="10"
                 android:inputType="date"
                 android:hint="Tanggal Lahir"
@@ -68,9 +72,11 @@
                 android:id="@+id/radioGroup"
                 android:layout_width="376dp"
                 android:layout_height="32dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,13 +84,13 @@
 
                 <RadioButton
                     android:id="@+id/radioButton"
-                    android:layout_width="187dp"
+                    android:layout_width="185dp"
                     android:layout_height="wrap_content"
                     android:text="Laki Laki" />
 
                 <RadioButton
                     android:id="@+id/radioButton2"
-                    android:layout_width="187dp"
+                    android:layout_width="185dp"
                     android:layout_height="wrap_content"
                     android:text="Perempuan" />
             </RadioGroup>
@@ -98,7 +104,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
-                android:entries="@array/android_dropdown_arrays"
+                android:entries="@array/jurusan"
                 android:longClickable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -115,7 +121,6 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:text="Simpan Data"
-                android:onClick="btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.428"
                 app:layout_constraintStart_toStartOf="parent"

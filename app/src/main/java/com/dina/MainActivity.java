@@ -5,84 +5,92 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
-
-    TextView TanggalLahir;
+    private RadioGroup radioGroup;
+    private RadioGroup jenis_kelamin;
+    private RadioButton radioButton, radioButton2;
+    EditText edtTanggalLahir, edtNama, edtNim;
+    Spinner spinnerJurusan;
     Calendar calendar;
-    EditText nim, ttl, nama;
-    Button btn;
-    Spinner jurusan;
-    RadioButton LL,W;
-    DatePickerDialog datePickerDialog;
-
+    DatePickerDialog picker;
+    Button btnGet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        nama = (EditText) findViewById(R.id.edtNama);
-        nim = (EditText) findViewById(R.id.edtNim);
-        ttl = (EditText) findViewById(R.id.edtTanggalLahir);
-        jurusan = (Spinner) findViewById(R.id.spinnerJurusan);
-        btn = (Button) findViewById(R.id.btnSubmit);
-        LL = (RadioButton) findViewById(R.id.radioButton);
-        W = (RadioButton) findViewById(R.id.radioButton);
-
-
-        btn= (Button) findViewById(R.id.btnSubmit);
-
-        TanggalLahir = (TextView) findViewById(R.id.edtTanggalLahir);
-
-        TanggalLahir.setOnClickListener(new View.OnClickListener() {
+        edtTanggalLahir = (EditText) findViewById(R.id.edtTanggalLahir);
+        edtTanggalLahir.setInputType(InputType.TYPE_NULL);
+        edtTanggalLahir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 calendar = Calendar.getInstance();
-                int hari = calendar.get(Calendar.DAY_OF_MONTH);
-                int bulan = calendar.get(Calendar.MONTH);
-                int tahun = calendar.get(Calendar.YEAR);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
 
-                datePickerDialog = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                // date picker dialog
+                picker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int mhari, int mbulan, int mtahun) {
-                        TanggalLahir.setText(mhari + "/" + (mbulan + 1) + "/" + mtahun);
+                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                        edtTanggalLahir.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                     }
-                }, hari, bulan, tahun);
-                datePickerDialog.show();
+                }, year, month, day);
+                picker.show();
             }
         });
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        edtNama = (EditText) findViewById(R.id.edtNama);
+        edtNim = (EditText) findViewById(R.id.edtNim);
+        edtTanggalLahir = (EditText) findViewById(R.id.edtTanggalLahir);
+        radioGroup = findViewById(R.id.radioGroup);
+        radioButton = findViewById(R.id.radioButton);
+        radioButton2 = findViewById(R.id.radioButton2);
+        spinnerJurusan =(Spinner) findViewById(R.id.spinnerJurusan);
+        btnGet = (Button) findViewById(R.id.btnSubmit);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
+            public void onCheckedChanged(RadioGroup group1, int checkedId1) {
+                switch (checkedId1) {
+                    case R.id.radioButton://radiobuttonID
+                        //do what you want
+                        break;
+                    case R.id.radioButton2://radiobuttonID
+                        //do what you want
+                        break;
+                }
+            }
+        });
+        btnGet.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                int selectedId = radioGroup.getCheckedRadioButtonId();
 
-
-                String nameValue = nama.getText().toString();
-                String nimValue = nim.getText().toString();
-                String ttlValue = ttl.getText().toString();
                 Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-                intent.putExtra("NAME",nameValue);
-                intent.putExtra("NIM",nimValue);
-                intent.putExtra("TTL",ttlValue);
+                intent.putExtra("data1", edtNama.getText().toString());
+                intent.putExtra("data2", edtNim.getText().toString());
+                intent.putExtra("data3", edtTanggalLahir.getText().toString());
+                if(radioButton.isChecked()){
+                    radioButton = (RadioButton) findViewById(selectedId);
+                    intent.putExtra("data4", radioButton.getText().toString());
+                }else{
+                    intent.putExtra("data4", radioButton2.getText().toString());
+                }
+                intent.putExtra("data5", spinnerJurusan.getSelectedItem().toString());
                 startActivity(intent);
             }
         });
-
-
-
-
-
     }
-
-
 }
