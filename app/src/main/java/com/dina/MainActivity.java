@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner spinnerJurusan;
     Calendar calendar;
     DatePickerDialog picker;
-    Button btnGet;
+    Button btnGet,btnParcel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         radioButton2 = findViewById(R.id.radioButton2);
         spinnerJurusan =(Spinner) findViewById(R.id.spinnerJurusan);
         btnGet = (Button) findViewById(R.id.btnSubmit);
+        btnParcel =(Button) findViewById(R.id.getParcel);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -92,5 +93,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //PARCELABLE DATA
+        btnParcel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                Button radioButton = (RadioButton) findViewById(selectedId);
+                DataDiri show = new DataDiri(edtNama.getText().toString(),edtNim.getText().toString(),edtTanggalLahir.getText().toString(),radioButton.getText().toString(),spinnerJurusan.getSelectedItem().toString());
+                Intent intent = new Intent(MainActivity.this, DetailParcelable.class);
+                intent.putExtra("TAMPIL", show);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }
